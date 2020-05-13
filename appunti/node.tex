@@ -1,0 +1,165 @@
+\documentclass[a4paper,11pt,twoside]{article}
+\usepackage[a4paper, total={7in, 10in}]{geometry} %for manage the page geometry
+
+\usepackage{titlesec}%for titleformat
+\usepackage{titling}
+\usepackage[english,italian]{babel}
+\usepackage{hyperref}
+
+\pagestyle{plain} %insert number of page
+\titleformat{\section}
+{\bfseries } %argument for formatting title section
+{}
+{0em} %distance between number and title of the section
+{}  %space from border to the title
+
+
+\titleformat{\section}
+{\bfseries\LARGE}
+{}
+{0em}
+{}
+
+\titleformat{\subsection}
+{\bfseries\LARGE}
+{}
+{0em}
+{}
+
+\titleformat{\subsubsection}[runin]
+{\large}
+{}
+{0em}
+{}
+
+\titlespacing{\subsubsection}
+{0em}   %space of the margin
+{0em}
+{0em}
+
+%redefine maketitle
+\renewcommand{\maketitle}
+{
+    \begin{center}
+        \huge\bfseries
+        \thetitle
+        \\ {}
+        \vspace{.0em} %vertical space
+    \end{center}
+}
+
+\begin{document}
+    \title{Node}
+    \author{Nico Fiorini}
+    \maketitle
+
+    \section{Introduzione}
+
+    Cos'è Node ? \\{}
+    Node js is an open source and cross-platform runtime envrironment for 
+    executing java script code outside of a browser.\\{}
+    Quite often we use node to obuild back-end services also called API (Application Programming Interface)
+    these are the services that power our client applications, like a web app running insede 
+    of a web browser or mobile app running on a mobile device, these client apps are 
+    simply what user sees and interacts with they're, just surface. 
+
+    
+    Node is ideal for building higly-scalable data intensive and real-time back-end services
+    that power our client apps.
+
+    Node is easy to get started and can be used for prototyping and agile development.
+    
+
+    \section{Node architecture}
+    Before Node we use javascript only to build application that run inside of a browser
+    , so every browser out there has what we call a javascript engine. 
+
+
+    That takes javascript code, and transforms it that computer can understand\vspace{1cm}  
+
+    
+    \textbf{Example} \\{}
+    --microsoft edge uses chacra \\{}
+    --firefox uses SpiderMonkey \\{}
+    --chrome uses v8\\{}
+
+    
+    \hspace{1cm}
+
+    for these varieties of engines that javascript code can behave in different way
+    in one browser or another.
+
+    
+    
+    In 2009\textit{Ryan Dahl} the creator of Node came up with brilliant idea
+    he thought it would be great to execute javascript outside of a browser.
+
+
+    He took v8, and embedded it inside a c++ program and called that program node. We have 
+    a different object from the environment objects we have in browser.
+
+\vspace{1cm}
+    \textbf{Example} \\{}
+    We don't have the document object  ---\(>\)document.getElementById(''); \href{https://en.wikipedia.org/wiki/Document_Object_Model}{See on wikipedia} 
+    
+\vspace{1cm}
+    But i can work with file system -- fs.readFile()\\{}
+    listen for requests --http.createServer()  and a given port and so on.
+
+
+    Inside of a browser we can't do that.
+
+
+    In essence: Node is a program that includes the v8 javascript engine plus and additional modules
+    that give us capabilities not available inside browser. 
+    browser and node have the same engine, but have different runtime environment for javascript.
+
+
+    Node is not a programming language, and isn't frameworks for building web application, 
+    it's a runtime environment for executing javascript.
+
+
+
+   \newpage
+   \section{How node works}
+   Node is higly-scalable, this is because of the non-blocking or asynchoronous natre of 
+   of node.Node applications are asynchronous by default.
+
+
+   Node is ideal for I/O-intensive apps
+   %\textbf{What do you mean asynchoronous?}
+   
+   I continue in the folder /home/linic/node 
+
+
+   \section{Node Module System}
+   What modules are? 
+
+
+   Why we need them and how they work?
+
+
+   we'll explore a feel of the modules built into the core of node such as operating system, file system, events and http. 
+
+   \section{Global object}
+
+   //continue in Node folder with index2.js
+
+    \section{Modules}
+
+    In the client-side javascript that we run inside of browser, when we declare a variable or a function 
+    that is addet to the Global scope for. 
+    continue in index3.js
+
+
+    So rimasto a 22'
+
+
+
+    
+
+
+
+    
+\end{document}
+
