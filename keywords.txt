@@ -1,0 +1,111 @@
+Strato di applicazione
+
+Servizi possibili:
+Trasferimento affidabile dei dati
+Throughput minimo
+Ritardo massimo limitato
+Sicurezza - SSL TSL
+
+Architettura: Client-Server o P2P
+
+Web - Sistema informativo dove le risorse sono indicate da URL
+http://web.uniroma2.it/index.html
+
+HTTP
+
+Mex di richiesta
+
+GET /index.html HTTP/1.1 CR+LF -- Linea di richiesta
+Host: web.uniroma2.it
+auth: 
+User-Agent: Mozilla/5.0
+If-modified-since: {data}
+
+Dati del corpo
+
+
+GET - HEAD - POST - PUT - DELETE
+query_string
+http://web.uniroma2.it/index.html?amplitude=12&fase=3
+
+Mex di risposta
+
+HTTP/1.1 200 OK -- Linea di risposta    418 
+Last-Modified: Data ultima modifica
+Connection: close
+Content-Lenght: #byte
+Content-Type: text/html
+
+Dati
+
+80 - 8080- 8008 
+
+www-autheticate:
+auth: nomeUtente e passwor
+
+Cookie
+
+Set-Cookie: 1a2s
+
+Cookie: 1a2s
+
+Cookie tecnici - Cookie analytics - Cookie di profilazione 
+Cookie di terze parti
+
+FTP - File Transfer Protocol 
+
+Connessione di Controllo - Sul lato server porta 21
+
+LIST
+PASV
+DELE
+PWD
+QUIT
+
+Connessione di trasferimento dati
+
+Modalita attiva 
+PORT 3456
+Porta 20
+
+Modalita passiva
+PASV 
+PORT 7654
+
+Posta Elettronica
+
+MUA - Thunderbird
+Mail Server - Mail Transfer Unit
+Protocollo di scambio mail SMTP
+Protocollo di accesso alla posta - POP3, IMAP, HTTP
+
+SMTP - Simple Mail Transfer Protocol
+Porta 25 - 587 - TCP
+
+MIME
+content-Type: mixed - Delimitatori=+++
+Content-Transfer-Encoding: base64
+
+++++
+Ciao sono NIco
++++
+contentype: pdf
+encpding: base 64
+02038948718648923463
++++
+
+POP3 Post Office Protocol Version 3
+Porta 110
+
+list 
+del
+quit
+
+IMAP - Internet Mail Acces Protocol
+Porta 143
+
+HTTP
+
+
+
+
