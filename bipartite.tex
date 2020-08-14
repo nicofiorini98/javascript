@@ -1,0 +1,305 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={7in, 10in}]{geometry} %for manage the page geometry
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\begin{document}
+
+\author{Nico Fiorini}
+\date{}
+
+\title{Problema grafo bipartito }
+\maketitle
+\section{Problema 5.2, grafo bipartito}
+
+Risolvere il seguente problema: \\
+Un grafo non orientato G=(V,E) si dice bipartito se è possibile
+partizionare i suoi vertici in due sottoinsiemi $V_{1}$ e $V_{2}$ 
+tali che non esistono archi tra vertici nello stesso sottoinsieme: 
+formalmente, se (u,v) $\in$ e, allora u $\in v_{1}$ e $u \in v_{2}$
+o viceversa. 
+\begin{enumerate}
+  \item  Dimostrare che un grafo è bipartito se e solo se non contiene 
+         cicli di lunghezza dispari, dove la lunghezza è il numero di 
+         archi nel ciclo.
+  \item  Descrivere un algoritmo per verificare se un grafo connesso è bipartito. 
+  l’algoritmo deve esibire la partizione $V_{1}$ e $V_{2}$ nel caso di 
+  risposta affermativa, e un ciclo di lunghezza dispari nel caso di risposta negativa. 
+  \item Discutere il tempo di esecuzione dell'algoritmo proposto.
+\end{enumerate}
+
+\section*{Soluzione 1.}
+
+\subsection{Lemma 1} 
+Sia G=(V,E) un grafo non orientato, ogni componente connessa di G è bipartita,
+allora G è bipartito.
+
+\textbf{Dimostrazione} 
+
+Supponiamo per assurdo che G non sia Bipartito, allora esiste un arco $(x,y)$ 
+tale che $x,y \in V_{1}$ o $V_{2}$. 
+Ciò è assurdo poichè l'arco deve appartenere ad una componente connessa siccome y
+è raggiungibile da x, ciò è assurdo in quanto nega l'ipotesi di partenza $\blacksquare$ 
+
+\subsection*{Teorema 1}
+Un grafo è bipartito se e solo se non contiene cicli di lunghezza
+dispari.
+
+
+\textbf{Dimostrazione} \\
+Procedo dimostrando un'implicazione per volta. 
+
+\textbf{1° implicazione} $\Rightarrow$ \\ 
+Si vuole dimostrare che se un grafo è bipartito $\Rightarrow$ non contiene 
+cicli di lunghezza dispari. \\
+Supponiamo per assurdo che esiste un ciclo di lunghezza dispari: \\ 
+$\exists \hspace{1mm} C = (w_{1},w_{2},. . . . w_{n},w_{1})$ tale che $(w_{i-1},w_{i}) \in E$ $ \forall \hspace{2mm} 1 \leq i \leq n$
+e n = 2k+1 dove $k \in \mathbb{Z} $
+
+Senza perdita di generalità sia: \\ 
+
+\begin{center}
+$w_{1} \in V_{1}$  \\
+$w_{2} \in V_{2}$  \\ 
+\end{center}
+
+Sia $w_{i} \in v_{1} \hspace{2mm} \forall i=2k+1  \rightarrow w_{n} \in V_{1}$\\
+È assurdo in quanto $(w_{n},w_{1}) \in E$ \hspace{1mm} e  $w_{n},w_{1} \in V_{1}$ 
+
+\textbf{2° implicazione} $\Leftarrow $ \\
+È sufficiente mostrare quest'implicazione per un grafo connesso, se il grafo non 
+è connesso, basta ripetere la dimostrazione per ogni componente connessa di G in 
+virtù del lemma 1.
+
+
+Sia $G=(V,E)$ un grafo senza cicli di lunghezza dispari\\
+Sia $w \in V$, posso partizionare il grafo in due sottoinsiemi: 
+
+\begin{center}
+  $V_{1}$ = \{ $ v \in V \: | d(v,w) \:$ è pari  \} \\ 
+  $V_{2}$ = \{ $ v \in V \: | d(v,w) \:$ è dispari  \} \\ 
+  $V_{1} \cap V_{2} =  \emptyset \;\;\; V_{1} \cup V_{2} = V$
+\end{center}
+
+Voglio dimostrare che questa partizione è di un grafo bipartito. \\
+Supponiamo per assurdo che questa partizione non lo sia,
+quindi deve esistere un arco che collega 2 vertici dello stesso insieme, formalmente :
+
+\begin{center}
+  $\exists (a,b) \in E \;$ tale che $a,b \in V_{1} $ oppure $ a,b \in V_{2}$ 
+\end{center}
+
+Senza perdita di generalità, sia $a=w \Rightarrow d(a,w) = 0$ quindi $a \in V_{1} $ 
+ed anche $b \in V_{1} \rightarrow d(w,b) = d(a,b) = 2k$. \\
+È assurdo poichè: 
+\[1=d(a,b)= 2k\] \\
+Quindi si conclude che $a \neq b \neq w$.
+
+Siano ora $\pi_{wa}$ e $\pi_{wb}$ i due cammini minimi che vanno rispettivamente da $w $ ad $ a $, 
+e da $w$ a $b$.  
+I due cammini hanno almeno un vertice in comune, in quanto w è comune a tutti e due i cammini, 
+tuttavia può avere anche altri vertici in comune.
+
+Sia $x$ l'ultimo vertice in comune nei due cammini, una rappresentazione grafica è riportata 
+nell'immagine seguente: 
+  
+%immagine
+\begin{center}
+\includegraphics[width=3in,keepaspectratio]{scheme.png}
+\end{center}
+
+La lunghezza dei due cammini $\pi_{wa}$ e $\pi_{wb}$ sono tutti e due pari o tutti e due dispari,
+poichè $a$ e $b$ appartengono allo stesso insieme, e siccome sono cammini minimi, la lunghezza dei
+cammini corrisponde alla distanza tra gli estremi dei cammini. Grazie a questa proprietà possiamo
+dire che la lunghezze di $\pi_{w,x}^{'}$ e $\pi_{w,x}^{''}$ sono uguali, quindi le 
+lugghezze di  $\pi_{xa}$ e $\pi_{xb}$ continuano ad essere tutte e due pari o tutte e due dispari. 
+
+Calcoliamo la lunghezza del seguente ciclo:
+
+\begin{center}
+  $C=(\pi_{ax},\pi_{xb},\pi_{b,a})$ \\
+  $l(C)= l(\pi_{ax})+l(\pi_{xb})+l(\pi_{b,a})) = d(a,x)+d(x,b)+d(b,a)$
+\end{center}
+Sappiamo che $l(\pi_{ax}), l(\pi_{xb})$ sono tutte e due pari o tutte e due dispari, di conseguenza
+ $d(a,x)+d(x,b)=2k$ inoltre $d(b,a) = 1$ siccome sono vertici connessi da un arco per ipotesi, quindi:
+
+ \begin{center}
+  $l(C)=2k+1$ 
+ \end{center}
+ 
+È assurdo poichè in partenza abbiamo supposto che non esistono cicli di lunghezza
+dispari, quindi possiamo concludere che il partizionamento non può avere archi
+che collegano due vertici dello stesso insieme.
+ $\blacksquare$
+\\
+
+Ricapitolando, abbiamo supposto che non esistono cicli di lunghezza dispari,
+abbiamo partizionato il grafo in due sottoinsiemi,e abbiamo provato
+a trovare un arco che unisce due vertici dello stesso insieme.d
+Facendo questo arriviamo all'assurdo di non soddisfare l'ipotesi di partenza, quindi
+il grafo è bipartito, e può essere caratterizzato dal partizionamento trovato.
+
+\section*{Soluzione 2.} 
+
+Basandoci sul teorema precedente, è possibile realizzare un algoritmo che dato un 
+grafo in input, è in grado di riconoscere se è bipartito provando a trovare 
+un ciclo di lunghezza dispari nel grafo.
+
+Possiamo ricavare l'algoritmo basandoci su una visita BFS, in quanto l'albero 
+della visita BFS gode di alcune proprietà utili per il nostro problema.
+
+\subsection*{Lemma 2}
+Siano dati un grafo non orientato e connesso $G=(V,E)$, un vertice $s$ in G, ed 
+un albero T prodotto dall'algoritmo visitaBFS. Per ogni vertice $v \in T$, risulta 
+$l(v)=d_{sv}$ 
+\\
+
+Questa lemma è particolarmente utile per sfruttare il partizionamento usato nella 
+dimostrazione del teorema 1, in quanto possiamo marcare i vertici con livello di 
+profondità pari dell'alberto BFS nell'insieme $V_{1}$, e marchiamo nell'insieme 
+$V_{2}$ i vertici con profondità dispari nell'albero BFS. 
+
+\subsection*{Proprietà 1}
+Ogni arco di un grafo non orientato G su cui si effettua la visita in ampiezza 
+può essere classificato in tre gruppi rispetto all'albero BFS prodotto:
+
+\begin{enumerate}
+  \item archi dell'albero BFS.
+  \item archi tra vertici allo stesso livello dell'albero BFS.
+  \item archi tra livelli adiacenti dell'albero BFS.
+\end{enumerate}
+
+\begin{center}
+  \includegraphics[width=3in,keepaspectratio]{bfs_tree.png}
+\end{center}
+
+L'arco di tipo 2, è un arco che unisce due vertici della stessa profondità 
+dell'albero BFS, quindi unisce due vertici dello stesso insieme, di conseguenza basta 
+controllare con una variante dell'algortimo visitaBFS, che non ci siano archi 
+di tipo 2, nel momento in cui abbiamo un arco di tipo 2, siamo certi della 
+presenza di un ciclo dispari, mentre se l'algoritmo arriva a visitare tutto il grafo
+senza incontrare archi di tipo 2, allora l'algoritmo non ha archi che uniscono
+due vertici dello stesso insieme.
+
+\begin{algorithm}
+%\caption{}
+\begin{algorithmic}[1]
+\STATE \textbf{bool isBipartite(Grafo G,Node s)}
+\vspace{1em}
+\STATE Marca tutti i vertici di G come inesplorati
+\STATE Marca $s$ come esplorato
+\STATE Assegna ad s il livello 0  
+\STATE T $\leftarrow$ albero formato dalla radice s
+\STATE Coda F
+\STATE F.enqueque(s)
+\WHILE{not F.isEmpty()} 
+\STATE$u \leftarrow F.dequeque()$ 
+\STATE visita $u$
+\FORALL{$arco(u,v) \in E$}  
+    \IF{$v$ è inesplorato}  
+      \STATE marca v come esplorato
+      \STATE F.enqueque(v)
+      \STATE rendi $u$ padre di $v$ in T
+      \STATE livello di $v \leftarrow $ (livello di u) +1
+    \ENDIF 
+    \IF{livello di u == livello di $v$}
+      \STATE StampaCicloDispari($u,v$)
+      \RETURN false
+    \ENDIF
+\ENDFOR
+\ENDWHILE
+\STATE StampaInsiemi(s)
+\RETURN true
+\end{algorithmic} 
+\end{algorithm} 
+
+\newpage
+
+Dati i due vertici uniti da un arco di tipo 2 della proprietà 1, è possibile 
+stampare i valori dei nodi contenuti nel ciclo, risalendo di padre in padre 
+nei 2 vertici, fino a quando non si incontra il vertice in comune.
+
+\begin{algorithm}
+%\caption{}
+\begin{algorithmic}[1]
+\STATE \textbf{void StampaCicloDispari(Node u,Node v)}
+\vspace{1em}
+
+\STATE bool common := false
+\STATE Sia X un array ausiliario
+\STATE int i:=0
+\WHILE{not common} 
+\PRINT valore di $u$
+\STATE X[i] = valore di $v$
+\STATE $i++$
+\STATE $u \leftarrow$ parent($u$)
+\STATE $v \leftarrow$ parent($v$) 
+\IF{valore di $u$ = valore di $v$}
+\PRINT valore di u
+\STATE common:=true
+\ENDIF
+\ENDWHILE
+\WHILE{(i$>$0)}
+\PRINT valore di v 
+\STATE $i--$
+\ENDWHILE
+\end{algorithmic} 
+\end{algorithm} 
+
+Nel caso il grafo è bipartito, vogliamo stampare le due partizioni trovate. 
+Lo facciamo tramite la funzioni stampaInsiemi(s). La funzione parte 
+dal vertice s, ed esegue una visita dei nodi nell'albero BFS, stampando prima i 
+nodi che appartengono ad un livello di profondità pari, e memorizziamo in un array 
+i nodi che appartengono ad un livello di profondità dispari, in modo da poterli 
+stampare dopo aver stampato quelli del primo insieme.
+
+\begin{algorithm}
+%\caption{}
+\begin{algorithmic}[1]
+\STATE \textbf{void StampaInsiemi(Node s)}
+\vspace{1em}
+
+\STATE Sia X un array ausiliario
+\STATE int i:=0
+\STATE Coda C
+\STATE C.enqueque(s) 
+\PRINT Nodi dell'insieme $V_{1}:$
+\WHILE{not C.isEmpty()} 
+  \STATE $u \leftarrow$ C.dequeque
+  \IF{$u \neq null$}
+    \IF{valore u \% 2 ==0}
+      \PRINT valore di u
+    \ELSE 
+      \STATE X[i++] = valore di u
+    \ENDIF
+  \ENDIF
+  \FORALL{$i \in$ figli di $u$}
+    \STATE C.enqueque(i)
+  \ENDFOR
+\ENDWHILE 
+\STATE int j=0; 
+
+  \PRINT Nodi dell'insieme $V_{2}$
+\WHILE{$j < i$}
+\PRINT X[j++]
+\ENDWHILE
+\end{algorithmic} 
+\end{algorithm}
+
+\newpage
+
+\section{Soluzione 3.}
+
+Il costo computazionale dell'algoritmo "isBipartite" trovato per la Soluzione 2
+è lo stesso ottenuto per una visita di un grafo, quindi $O(m+n)$ nel caso il grafo è 
+implementato con liste di adiacenza o liste di incidenza. 
+Questo perchè 
+L'algoritmo StampaCicloDispari e StampaInsiemi richiede tempo $O(n)$ in entrambi i 
+casi, e viene eseguito solo uno di questi due algoritmi una sola volta durante l'algoritmo isBipartite,
+per questo motivo, i due algoritmi non incidono sull'andamento asintotico dell'algoritmo.
+\end{document} 
